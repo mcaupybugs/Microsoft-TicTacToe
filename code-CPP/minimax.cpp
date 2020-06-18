@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define MAX_DEPTH INT_MAX
 int arr[3][3];
 void initialize()
 {
@@ -69,7 +70,7 @@ bool isFull()
     }
     return true;
 }
-int minimax(bool maximizing)
+int minimax(bool maximizing, int depth)
 {
     if (didEnd() == true && maximizing == true)
     {
@@ -80,6 +81,10 @@ int minimax(bool maximizing)
         return 1;
     }
     if (isFull() == true)
+    {
+        return 0;
+    }
+    if (depth == MAX_DEPTH)
     {
         return 0;
     }
@@ -94,7 +99,7 @@ int minimax(bool maximizing)
                 if (arr[i][j] == -1)
                 {
                     arr[i][j] = 1;
-                    score = minimax(false);
+                    score = minimax(false, depth + 1);
                     arr[i][j] = -1;
                     if (score > bestScore)
                     {
@@ -115,7 +120,7 @@ int minimax(bool maximizing)
                 if (arr[i][j] == -1)
                 {
                     arr[i][j] = 0;
-                    score = minimax(true);
+                    score = minimax(true, depth + 1);
                     arr[i][j] = -1;
                     bestScore = min(score, bestScore);
                 }
@@ -138,7 +143,7 @@ void move(bool human)
                 if (arr[i][j] == -1)
                 {
                     arr[i][j] = 1;
-                    int score = minimax(false);
+                    int score = minimax(false, 0);
                     arr[i][j] = -1;
                     if (score > bestScore)
                     {
@@ -163,7 +168,7 @@ void move(bool human)
                 if (arr[i][j] == -1)
                 {
                     arr[i][j] = 0;
-                    int score = minimax(false);
+                    int score = minimax(false, 0);
                     arr[i][j] = -1;
                     if (score > bestScore)
                     {

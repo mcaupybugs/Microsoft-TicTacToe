@@ -1,4 +1,5 @@
 import React from 'react';
+import Board from './board';
 
 class App extends React.Component {
 
@@ -6,7 +7,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                Hi
+                <Board></Board>
             </div>
         )
     }
